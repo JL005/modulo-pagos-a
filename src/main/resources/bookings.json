@@ -1,0 +1,30 @@
+[
+    {
+      "bookingId": 1,
+      "passengerId": 101,
+      "flightId": 201,
+      "bookingDate": "2023-12-15T10:30:00",
+      "basePrice": 350.00,
+      "tax": 15.00,
+      "totalPrice": 402.50
+    },
+    {
+      "bookingId": 2,
+      "passengerId": 102,
+      "flightId": 202,
+      "bookingDate": "2023-12-16T14:45:00",
+      "basePrice": 280.00,
+      "tax": 15.00,
+      "totalPrice": 315.00
+    },
+    {
+      "bookingId": 3,
+      "passengerId": 103,
+      "flightId": 203,
+      "bookingDate": "2023-12-17T08:15:00",
+      "basePrice": 410.00,
+      "tax": 15.00,
+      "totalPrice": 484.80
+    }
+]
+
