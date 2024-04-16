@@ -1,4 +1,4 @@
-package co.udea.sitas.Model;
+package co.udea.sitas.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
