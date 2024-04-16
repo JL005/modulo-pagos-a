@@ -1,43 +1,39 @@
-package co.udea.sitas.Service;
+package co.udea.sitas.service;
 
-import co.udea.sitas.Model.Booking;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import co.udea.sitas.dto.BookingDTO;
+import co.udea.sitas.model.Booking;
+import co.udea.sitas.repository.BookingRepository;
+import co.udea.sitas.utils.BookingMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BookingService {
 
-    private final String filePath = "classpath:bookings.json";
+    private final BookingRepository bookingRepository;
 
-    public List<List<Booking>> searchBookingsByID(int booking_id) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("bookings.json");
-
-            if(inputStream != null) {
-                Booking[] bookings = objectMapper.readValue(inputStream, Booking[].class);
-                return Arrays.asList(
-                        Arrays.stream(bookings)
-                                .filter(booking -> isBookingInBookings(booking.getBookingId(), booking_id))
-                                .collect(Collectors.toList()));
-            } else {
-                return null;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error leyendo el archivo JSON ", e);
+    public BookingDTO getBookingByID(long bookingId) {
+        Booking booking = this.bookingRepository.findById(bookingId).orElse(null);
+        if (booking == null) {
+            return null;
         }
+        return BookingMapper.toDTO(booking);
     }
 
-    private boolean isBookingInBookings(int bookingtocheck, int booking) {
-        // Checks if booking_id is in Bookings list
-        return Objects.equals(bookingtocheck, booking);
+    public Booking paidBooking(long bookingId){
+        Booking booking = this.bookingRepository.findById(bookingId).orElse(null);
+        if (booking == null) {
+            throw new RuntimeException("Booking not found");
+        }
+        if (booking.isPaid()) {
+            throw new RuntimeException("Booking already paid");
+        }
+        booking.setPaid(true);
+        this.bookingRepository.save(booking);
+        return booking;
     }
 
 }
