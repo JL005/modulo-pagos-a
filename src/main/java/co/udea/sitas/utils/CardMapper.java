@@ -2,7 +2,6 @@ package co.udea.sitas.utils;
 
 import co.udea.sitas.dto.CardPaidDTO;
 import co.udea.sitas.dto.PayCardDTO;
-import co.udea.sitas.dto.PayCreditCardDTO;
 
 public class CardMapper {
 

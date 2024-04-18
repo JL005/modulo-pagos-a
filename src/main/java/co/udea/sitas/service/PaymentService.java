@@ -2,7 +2,6 @@ package co.udea.sitas.service;
 
 import co.udea.sitas.dto.CardPaidDTO;
 import co.udea.sitas.dto.PayCardDTO;
-import co.udea.sitas.dto.PayCreditCardDTO;
 import co.udea.sitas.model.Booking;
 import co.udea.sitas.utils.CardMapper;
 import lombok.RequiredArgsConstructor;
