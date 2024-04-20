@@ -1,13 +1,12 @@
 package co.udea.sitas.controller;
 
 import co.udea.sitas.dto.BookingDTO;
-import co.udea.sitas.model.Booking;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import co.udea.sitas.service.BookingService;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+import co.udea.sitas.service.BookingService;
 
 @RestController
 @RequestMapping("/bookings")
@@ -22,16 +21,9 @@ public class BookingController {
         return bookingService.getBookingByID(bookingId);
     }
 
-    /*
-    @GetMapping("/searchbybookingid")
-
-    public List<List<Booking>> searchBookingsByID(
-            @RequestParam(name = "bookingID") int booking_id) {
-
-            return bookingService.searchBookingsByID(booking_id);
+    @GetMapping("/")
+    public List<BookingDTO> getUnpaidBookings() {
+        return bookingService.getUnpaidBookings();
     }
-     */
-
-
 }
 

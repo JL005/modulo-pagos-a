@@ -7,6 +7,7 @@ import co.udea.sitas.utils.BookingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,11 @@ public class BookingService {
         booking.setPaid(true);
         this.bookingRepository.save(booking);
         return booking;
+    }
+
+    public List<BookingDTO> getUnpaidBookings() {
+        List<Booking> bookings = this.bookingRepository.findByIsPaidFalse();
+        return BookingMapper.toDTOList(bookings);
     }
 
 }

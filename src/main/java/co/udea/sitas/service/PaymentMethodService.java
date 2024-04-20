@@ -1,7 +1,7 @@
 package co.udea.sitas.service;
 
 import co.udea.sitas.dto.PaymentMethodDTO;
-import co.udea.sitas.model.paymentmethod.PaymentMethod;
+import co.udea.sitas.model.PaymentMethod;
 import co.udea.sitas.repository.PaymentMethodRepository;
 import co.udea.sitas.utils.PaymentMethodMapper;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,10 @@ package co.udea.sitas.service;
 
 import co.udea.sitas.dto.CardPaidDTO;
 import co.udea.sitas.dto.PayCardDTO;
+import co.udea.sitas.dto.PaypalDTO;
 import co.udea.sitas.model.Booking;
+import co.udea.sitas.model.PaypalAccount;
+import co.udea.sitas.repository.PaypalAccountRepository;
 import co.udea.sitas.utils.CardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ public class PaymentService {
 
     private final BookingService bookingService;
     private final PaymentMethodService paymentMethodService;
+    private final PaypalAccountRepository paypalAccountRepository;
 
     public CardPaidDTO payBookingWithCard(PayCardDTO paySavingsCard) {
         String cardType = this.validateCard(paySavingsCard);
@@ -54,5 +58,14 @@ public class PaymentService {
     public static boolean isAmericanExpress(String cardNumber) {
         Matcher matcher = Pattern.compile("^3[47][0-9]{13}$").matcher(cardNumber);
         return matcher.matches();
+    }
+
+    public boolean payPalPayment(PaypalDTO paypalDTO){
+        PaypalAccount account = this.paypalAccountRepository.findByEmail(paypalDTO.getEmail());
+        if(account != null && account.getPassword().equals(paypalDTO.getPassword())){
+            return true;
+        }
+        return false;
+
     }
 }

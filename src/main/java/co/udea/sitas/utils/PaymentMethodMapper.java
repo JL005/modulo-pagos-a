@@ -1,7 +1,7 @@
 package co.udea.sitas.utils;
 
 import co.udea.sitas.dto.PaymentMethodDTO;
-import co.udea.sitas.model.paymentmethod.PaymentMethod;
+import co.udea.sitas.model.PaymentMethod;
 
 public class PaymentMethodMapper {
 

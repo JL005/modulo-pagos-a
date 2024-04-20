@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class    Booking {
+public class  Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingId;

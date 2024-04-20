@@ -1,5 +1,8 @@
 package co.udea.sitas.utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import co.udea.sitas.dto.BookingDTO;
 import co.udea.sitas.model.Booking;
 
@@ -30,5 +33,9 @@ public class BookingMapper {
                 .totalPrice(bookingDTO.getTotalPrice())
                 .isPaid(bookingDTO.isPaid())
                 .build();
+    }
+
+    public static List<BookingDTO> toDTOList(List<Booking> bookings){
+        return bookings.stream().map(BookingMapper::toDTO).collect(Collectors.toList());
     }
 }

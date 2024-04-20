@@ -1,4 +1,4 @@
-package co.udea.sitas.model.paymentmethod;
+package co.udea.sitas.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
