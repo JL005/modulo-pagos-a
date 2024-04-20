@@ -24,7 +24,6 @@ public class BookingMapper {
                 .build();
     }
 
-
     public static List<BookingDTO> toDTOList(List<Booking> bookings){
         return bookings.stream().map(BookingMapper::toDTO).toList();
     }
