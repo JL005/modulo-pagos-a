@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLDataException;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/paymentmethod")
@@ -16,7 +18,7 @@ public class PayController {
     private final PaymentService paymentService;
 
     @PostMapping("/card")
-    public CardPaidDTO makePayment(@RequestBody PayCardDTO payCreditCard) {
+    public CardPaidDTO makePayment(@RequestBody PayCardDTO payCreditCard) throws SQLDataException {
         return this.paymentService.payBookingWithCard(payCreditCard);
     }
 

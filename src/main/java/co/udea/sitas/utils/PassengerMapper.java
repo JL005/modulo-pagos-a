@@ -7,7 +7,10 @@ import co.udea.sitas.dto.PassengerDTO;
 import co.udea.sitas.model.Passenger;
 
 public class PassengerMapper {
-    
+
+    private PassengerMapper() {
+    }
+
     public static PassengerDTO toDTO(Passenger passenger) {
         return PassengerDTO.builder()
                 .name(passenger.getName())
@@ -16,6 +19,6 @@ public class PassengerMapper {
     }
 
     public static List<PassengerDTO> toDTOList(List<Passenger> passengers) {
-        return passengers.stream().map(PassengerMapper::toDTO).collect(Collectors.toList());
+        return passengers.stream().map(PassengerMapper::toDTO).toList();
     }
 }

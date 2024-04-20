@@ -10,6 +10,7 @@ import co.udea.sitas.utils.CardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLDataException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,10 +22,10 @@ public class PaymentService {
     private final PaymentMethodService paymentMethodService;
     private final PaypalAccountRepository paypalAccountRepository;
 
-    public CardPaidDTO payBookingWithCard(PayCardDTO paySavingsCard) {
+    public CardPaidDTO payBookingWithCard(PayCardDTO paySavingsCard) throws SQLDataException {
         String cardType = this.validateCard(paySavingsCard);
         if(cardType == null){
-            // TODO: ARROJAR ERROR DE TARJETA NO VÁLIDA O NO SOPORTADA
+
             return null;
         }
         Booking booking = this.bookingService.paidBooking(paySavingsCard.getBookingId());
@@ -45,27 +46,24 @@ public class PaymentService {
     }
 
     public static boolean isVISA(String cardNumber) {
-        Pattern pattern = Pattern.compile("^4[0-9]{12}(?:[0-9]{3})?$");
+        Pattern pattern = Pattern.compile("^4\\d{12}(?:\\d{3})?$");
         Matcher matcher = pattern.matcher(cardNumber);
         return matcher.matches();
     }
 
     public static boolean isMastercard(String cardNumber) {
-        Matcher matcher = Pattern.compile("^5[1-5][0-9]{14}$").matcher(cardNumber);
+        Matcher matcher = Pattern.compile("^5[1-5]\\d{14}$").matcher(cardNumber);
         return matcher.matches();
     }
 
     public static boolean isAmericanExpress(String cardNumber) {
-        Matcher matcher = Pattern.compile("^3[47][0-9]{13}$").matcher(cardNumber);
+        Matcher matcher = Pattern.compile("^3[47]\\d{13}$").matcher(cardNumber);
         return matcher.matches();
     }
 
     public boolean payPalPayment(PaypalDTO paypalDTO){
         PaypalAccount account = this.paypalAccountRepository.findByEmail(paypalDTO.getEmail());
-        if(account != null && account.getPassword().equals(paypalDTO.getPassword())){
-            return true;
-        }
-        return false;
+        return account != null && account.getPassword().equals(paypalDTO.getPassword());
 
     }
 }

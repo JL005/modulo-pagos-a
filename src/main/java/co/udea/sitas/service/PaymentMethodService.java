@@ -7,6 +7,7 @@ import co.udea.sitas.utils.PaymentMethodMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLDataException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class PaymentMethodService {
 
     private final PaymentMethodRepository paymentMethodRepository;
 
-    public List<PaymentMethodDTO> getAllPaymentMethods() {
+    public List<PaymentMethodDTO> getAllPaymentMethods() throws SQLDataException {
 
         try {
             List<PaymentMethodDTO> paymentMethodDTOList = new ArrayList<>();
@@ -26,7 +27,7 @@ public class PaymentMethodService {
             }
             return paymentMethodDTOList;
         } catch (Exception e) {
-            return null;
+            throw new SQLDataException("Error getting payment methods");
         }
     }
 }
