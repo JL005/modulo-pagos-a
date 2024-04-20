@@ -5,6 +5,9 @@ import co.udea.sitas.dto.PayCardDTO;
 
 public class CardMapper {
 
+    private CardMapper() {
+    }
+
     public static CardPaidDTO infoCard(PayCardDTO savingsCardDTO, double amount, String cardType) {
         return CardPaidDTO.builder()
                 .cardNumber(savingsCardDTO.getCardNumber())

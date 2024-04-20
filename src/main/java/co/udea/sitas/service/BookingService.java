@@ -7,6 +7,7 @@ import co.udea.sitas.utils.BookingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLDataException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,13 +25,13 @@ public class BookingService {
         return BookingMapper.toDTO(booking);
     }
 
-    public Booking paidBooking(long bookingId){
+    public Booking paidBooking(long bookingId) throws SQLDataException {
         Booking booking = this.bookingRepository.findById(bookingId).orElse(null);
         if (booking == null) {
-            throw new RuntimeException("Booking not found");
+            throw new SQLDataException("Booking not found");
         }
         if (booking.isPaid()) {
-            throw new RuntimeException("Booking already paid");
+            throw new SQLDataException("Booking already paid");
         }
         booking.setPaid(true);
         this.bookingRepository.save(booking);
