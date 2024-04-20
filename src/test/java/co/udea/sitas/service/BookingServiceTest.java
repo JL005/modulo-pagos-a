@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class BookingServiceTest {
+class BookingServiceTest {
 
     @Mock
     private BookingRepository bookingRepository;
@@ -29,7 +29,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetBookingByID_ValidBooking() {
+    void testGetBookingByID_ValidBooking() {
         // Arrange
         long bookingId = 1L;
         Booking booking = new Booking();
@@ -45,7 +45,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetBookingByID_InvalidBooking() {
+    void testGetBookingByID_InvalidBooking() {
         // Arrange
         long bookingId = 1L;
         when(bookingRepository.findById(bookingId)).thenReturn(Optional.empty());
@@ -58,7 +58,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testPaidBooking_SuccessfulPayment() throws SQLDataException {
+    void testPaidBooking_SuccessfulPayment() throws SQLDataException {
         // Arrange
         long bookingId = 1L;
         Booking booking = new Booking();
@@ -76,7 +76,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testPaidBooking_BookingNotFound() {
+    void testPaidBooking_BookingNotFound() {
         // Arrange
         long bookingId = 1L;
         when(bookingRepository.findById(bookingId)).thenReturn(Optional.empty());
@@ -86,7 +86,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testPaidBooking_AlreadyPaidBooking() {
+    void testPaidBooking_AlreadyPaidBooking() {
         // Arrange
         long bookingId = 1L;
         Booking booking = new Booking();
@@ -99,7 +99,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetUnpaidBookings() {
+    void testGetUnpaidBookings() {
         // Arrange
         Booking booking1 = new Booking();
         booking1.setBookingId(1L);

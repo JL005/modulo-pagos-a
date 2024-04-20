@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class PaymentServiceTest {
+class PaymentServiceTest {
 
     @Mock
     private BookingService bookingService;
@@ -36,29 +36,9 @@ public class PaymentServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    /*
-    @Test
-    public void testPayBookingWithCard() throws SQLDataException {
-        // Arrange
-        PayCardDTO payCardDTO = new PayCardDTO();
-        payCardDTO.setCardNumber("4111111111111111");
-        payCardDTO.setBookingId(1L);
-
-        Booking booking = new Booking();
-        booking.setTotalPrice(100.0);
-        when(bookingService.paidBooking(1L)).thenReturn(booking);
-
-        // Act
-        CardPaidDTO cardPaidDTO = paymentService.payBookingWithCard(payCardDTO);
-
-        // Assert
-        assertEquals("VISA", cardPaidDTO.getCardType());
-        verify(bookingService, times(1)).paidBooking(1L);
-    }
-    */
 
     @Test
-    public void testValidateCard_Visa() {
+    void testValidateCard_Visa() {
         // Arrange
         PayCardDTO payCardDTO = new PayCardDTO();
         payCardDTO.setCardNumber("4111111111111111");
@@ -69,7 +49,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    public void testValidateCard_AmericanExpress() {
+    void testValidateCard_AmericanExpress() {
         // Arrange
         PayCardDTO payCardDTO = new PayCardDTO();
         payCardDTO.setCardNumber("378282246310005");
@@ -80,7 +60,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    public void testValidateCard_MasterCard() {
+    void testValidateCard_MasterCard() {
         // Arrange
         PayCardDTO payCardDTO = new PayCardDTO();
         payCardDTO.setCardNumber("5121111111111111");
@@ -90,41 +70,18 @@ public class PaymentServiceTest {
         assertEquals("Mastercard", cardType);
     }
     @Test
-    public void testValidateCard_Unknown() {
+    void testValidateCard_Unknown() {
         // Arrange
         PayCardDTO payCardDTO = new PayCardDTO();
         payCardDTO.setCardNumber("1234567890123456");
-
         // Act
         String cardType = paymentService.validateCard(payCardDTO);
-
         // Assert
         assertNull(cardType);
     }
 
-    // Similar tests can be written for isMastercard and isAmericanExpress methods
-
-    /*@Test
-    public void testPayPalPayment_ValidAccount() {
-        // Arrange
-        PaypalDTO paypalDTO = new PaypalDTO();
-        paypalDTO.setEmail("test@example.com");
-        paypalDTO.setPassword("password");
-
-        PaypalAccount mockAccount = new PaypalAccount();
-        mockAccount.setEmail("test@example.com");
-        mockAccount.setPassword("password");
-        when(paypalAccountRepository.findByEmail("test@example.com")).thenReturn(mockAccount);
-
-        // Act
-        boolean result = paymentService.payPalPayment(paypalDTO);
-
-        // Assert
-        assertTrue(result);
-    }
-    */
     @Test
-    public void testPayPalPayment_InvalidAccount() {
+    void testPayPalPayment_InvalidAccount() {
         // Arrange
         PaypalDTO paypalDTO = new PaypalDTO();
         paypalDTO.setEmail("test@example.com");
