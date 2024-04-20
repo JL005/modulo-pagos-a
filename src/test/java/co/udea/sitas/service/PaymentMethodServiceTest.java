@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class PaymentMethodServiceTest {
+class PaymentMethodServiceTest {
 
     @Mock
     private PaymentMethodRepository paymentMethodRepository;
@@ -29,7 +29,7 @@ public class PaymentMethodServiceTest {
     }
 
     @Test
-    public void testGetAllPaymentMethods_Success() throws SQLDataException {
+    void testGetAllPaymentMethods_Success() throws SQLDataException {
         // Arrange
         PaymentMethod paymentMethod1 = new PaymentMethod(1L, "Card");
         PaymentMethod paymentMethod2 = new PaymentMethod(2L, "PayPal");
@@ -51,7 +51,7 @@ public class PaymentMethodServiceTest {
     }
 
     @Test
-    public void testGetAllPaymentMethods_Exception() {
+    void testGetAllPaymentMethods_Exception() {
         // Arrange
         when(paymentMethodRepository.findAll()).thenThrow(new RuntimeException("Database error"));
 
@@ -60,7 +60,7 @@ public class PaymentMethodServiceTest {
     }
 
     @Test
-    public void testGetAllPaymentMethods_EmptyList() throws SQLDataException {
+    void testGetAllPaymentMethods_EmptyList() throws SQLDataException {
         // Arrange
         when(paymentMethodRepository.findAll()).thenReturn(new ArrayList<>());
 
