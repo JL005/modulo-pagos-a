@@ -24,7 +24,7 @@ public class PayController {
 
 
     @PostMapping("/paypal")
-    public ResponseEntity<String> makePaymentPaypal(@RequestBody PaypalDTO paypalDTO){
+    public ResponseEntity<String> makePaymentPaypal(@RequestBody PaypalDTO paypalDTO) throws SQLDataException {
         if (this.paymentService.payPalPayment(paypalDTO)){
             return ResponseEntity.ok("Pago exitoso");
         }

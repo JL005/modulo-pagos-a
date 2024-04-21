@@ -11,6 +11,7 @@ import lombok.*;
 public class PaypalDTO {
     private String email;
     private String password;
+    private long bookingId;
 }
 
 

@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLDataException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,17 +35,22 @@ public class PaymentService {
         return CardMapper.infoCard(paySavingsCard, booking.getTotalPrice(), cardType);
     }
 
+    private static final Map<String, Predicate<String>> cardValidators = new HashMap<>();
+
+    static {
+        cardValidators.put("VISA", cardNumber -> cardNumber.matches("^4\\d{12}(?:\\d{3})?$"));
+        cardValidators.put("Mastercard", cardNumber -> cardNumber.matches("^5[1-5]\\d{14}$"));
+        cardValidators.put("American Express", cardNumber -> cardNumber.matches("^3[47]\\d{13}$"));
+    }
+
     public String validateCard(PayCardDTO payCreditCard) {
         String cardNumber = payCreditCard.getCardNumber();
-        if (isVISA(cardNumber)) {
-            return "VISA";
-        } else if (isMastercard(cardNumber)) {
-            return "Mastercard";
-        } else if (isAmericanExpress(cardNumber)) {
-            return "American Express";
-        } else {
-            return null;
+        for (Map.Entry<String, Predicate<String>> entry : cardValidators.entrySet()) {
+            if (entry.getValue().test(cardNumber)) {
+                return entry.getKey();
+            }
         }
+        return null;
     }
 
     public static boolean isVISA(String cardNumber) {
@@ -61,9 +69,13 @@ public class PaymentService {
         return matcher.matches();
     }
 
-    public boolean payPalPayment(PaypalDTO paypalDTO){
+    public boolean payPalPayment(PaypalDTO paypalDTO) throws SQLDataException {
         PaypalAccount account = this.paypalAccountRepository.findByEmail(paypalDTO.getEmail());
-        return account != null && account.getPassword().equals(paypalDTO.getPassword());
+        if (account != null && account.getPassword().equals(paypalDTO.getPassword())){
+            this.bookingService.paidBooking(paypalDTO.getBookingId());
+            return true;
+        }
+        return false;
 
     }
 }
