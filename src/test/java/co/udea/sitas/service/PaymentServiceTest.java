@@ -1,10 +1,7 @@
 package co.udea.sitas.service;
 
-import co.udea.sitas.dto.CardPaidDTO;
 import co.udea.sitas.dto.PayCardDTO;
 import co.udea.sitas.dto.PaypalDTO;
-import co.udea.sitas.model.Booking;
-import co.udea.sitas.model.PaypalAccount;
 import co.udea.sitas.repository.PaypalAccountRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -81,7 +78,7 @@ class PaymentServiceTest {
     }
 
     @Test
-    void testPayPalPayment_InvalidAccount() {
+    void testPayPalPayment_InvalidAccount() throws SQLDataException {
         // Arrange
         PaypalDTO paypalDTO = new PaypalDTO();
         paypalDTO.setEmail("test@example.com");
