@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "payment_method")
+@Table(name = "mpa_payment_method")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
