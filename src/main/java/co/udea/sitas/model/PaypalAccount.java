@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "paypal_account")
+@Table(name = "mpa_paypal_account")
 @Getter
 @Setter
 public class PaypalAccount {

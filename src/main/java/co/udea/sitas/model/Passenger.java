@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "passenger")
+@Table(name = "mpa_passenger")
 @Getter
 @Setter
 @Builder
